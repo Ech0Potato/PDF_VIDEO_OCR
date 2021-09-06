@@ -70,27 +70,43 @@ def is_vertical_word(sorted_final_boxes):
     else:
         return False
 
-class ClassA :
+
+class Chinese_OCR():
     def __init__(self) -> None:
-        self.ocr = PaddleOCR()
+        ocr = PaddleOCR(use_angle_cls=True, use_gpu=False, det_model_dir = "/root/sansan_linux/det_infer",cls_model_dir="/root/sansan_linux/cls_infer",rec_model_dir="/root/sansan_linux/rec_infer")
+        self.ocr = ocr.ocr
 
-     
+    
+    def chi_sim_OCR(self, img_ndarray):
+        result = self.ocr(img_ndarray, cls=True)
 
+        re_list = list()
+        
+        for line in result:
+            rect_loc = [line[0][0],line[0][2]]
+            rect_data = line[1][0]
+            re_list.append((rect_loc,rect_data))
+        
+        return re_list
 
-def chi_sim_OCR(img_ndarray, num, type,  total_num, rate):
+def chi_sim_OCR(img_ndarray, num, type,  rate):
 
     ocr = PaddleOCR(use_angle_cls=True, use_gpu=False, det_model_dir = "./det_infer",cls_model_dir="./cls_infer",rec_model_dir="./rec_infer")
     result = ocr.ocr(img_ndarray, cls=True)
 
-    final_boxes = []
-    final_txts = []
-    index = 0
-    for line in result:
-        final_boxes.append(get_box(index, line[0]))
-        index += 1
-        final_txts.append(line[1][0])
+    re_list = list()
+    
+    # for line in result:
+    #     re_list.append((get_box(index, line[0]),line[1][0]))
+    
+    print("time", end-start)
+    return re_list
+
+    
     
 if __name__ == "__main__":
     imagePath = "./xjp.png"
-    chi_sim_OCR(img_ndarray= imagePath, num=1, type='imageOCR', rate=1)
+    # chi_sim_OCR(img_ndarray= imagePath, num=1, type='imageOCR', rate=1)
+    ocr = Chinese_OCR()
+    print(ocr.chi_sim_OCR(imagePath))
 

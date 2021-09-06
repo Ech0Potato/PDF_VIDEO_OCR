@@ -1,3 +1,3 @@
-pip install fastapi fitz opencv-python paddlepaddle paddleocr wheel speechrecognition
+pip install fastapi fitz opencv-python paddlepaddle paddleocr wheel speechrecognition fitz django-frontend
 apt install twig libpulse-dev libasound2-dev python-all-dev build-essential
 
