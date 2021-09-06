@@ -7,7 +7,7 @@ an http-api pdf, voice, video OCR format backend written in Python with PaddleOC
 **Consier start a container from a docker image first**:
 
 ```bash
-docker run -itd -p <host_port>:8800 ech0potato/sansan:v0.7 /bin/bash /root/start.sh 
+$ docker run -itd -p <host_port>:8800 ech0potato/sansan:v0.7 /bin/bash /root/start.sh 
 ```
 then you can direct to API document to try this backend program.
 
